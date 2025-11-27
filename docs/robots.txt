@@ -1,0 +1,6 @@
+User-agent: *
+
+Disallow: /api/*
+
+Host: https://opaproject.ru
+Sitemap: https://opaproject.ru/sitemap.xml

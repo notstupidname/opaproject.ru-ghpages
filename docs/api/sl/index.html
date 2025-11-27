@@ -1,0 +1,228 @@
+
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Список покупок</title>
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<link rel="preload" href="/assets/fonts/roboto-slab.var.subset.woff2" as="font" type="font/woff2" crossorigin="">
+<link rel="preload" href="/assets/fonts/ShantellSans-var.subset.opa.woff2" as="font" type="font/woff2" crossorigin="">
+<link rel="manifest" id="manifest" href="/manifest.light.webmanifest">
+<script>const usesDarkMode=window.matchMedia("(prefers-color-scheme: dark)").matches,manifest=document.getElementById("manifest");usesDarkMode&&(manifest.href="/manifest.dark.webmanifest")</script>
+<link rel="icon" href="/favicon.ico" sizes="any">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://mc.yandex.ru/" crossorigin="">
+<link rel="preconnect" href="https://www.googletagmanager.com/" crossorigin="">
+<script>!function(e,t,a,n){e[n]=e[n]||[],e[n].push({"gtm.start":(new Date).getTime(),event:"gtm.js"});var g=t.getElementsByTagName(a)[0],m=t.createElement(a);m.async=!0,m.src="https://www.googletagmanager.com/gtm.js?id=GTM-5P237L34",g.parentNode.insertBefore(m,g)}(window,document,"script","dataLayer")</script>
+<script defer="" src="/assets/js/app.min.js"></script>
+<meta name="color-scheme" content="light dark">
+<link rel="stylesheet" href="/assets/css/main.min.css">
+<meta name="application-name" content="ОПА!">
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="hsl(16, 10%, 93%)">
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="hsl(16, 5%, 10%)">
+<meta name="description" content="--- --- ---">
+<link rel="canonical" href="https://opaproject.ru/api/sl/">
+<meta name="author" content="ОПА!">
+<meta property="og:type" content="website">
+<meta class="title_replace" property="og:title" content="Список покупок">
+<meta property="og:locale" content="ru_RU">
+<meta property="og:description" content="--- --- ---">
+<meta property="og:url" content="https://opaproject.ru/api/sl/">
+<meta property="og:site_name" content="ОПА!">
+<meta property="og:image" content="https://opaproject.ru/assets/icons/shop-list-icon-color-min.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta property="twitter:image" content="https://opaproject.ru/assets/icons/shop-list-icon-color-min.jpg">
+<meta class="title_replace" property="twitter:title" content="Список покупок">
+<meta name="robots" content="noindex">
+<script type="speculationrules">
+{
+  "prerender": [{
+    "where": {
+      "href_matches": "/*"
+    },
+    "eagerness": "moderate"
+  }]
+}
+</script>
+</head>
+<body>
+<style>
+.shopping_list_name {
+    display: flex;
+    flex-direction: column;
+    line-height: 1;
+    font-size: var(--step-1);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-10);
+    padding-inline-start: 1ch;
+
+    &>span:last-child {
+      font-size: var(--step--1);
+      font-weight: var(--font-weight-light);
+    }
+  }
+</style>
+<header id="site-header">
+<a href="/" class="logo"><span>*</span><span></span><span>/</span></a>
+<a href="#" class="shopping_list_name">Shopping List</a>
+</header>
+<main class="stack shopping-list">
+<section>
+<ul id="shopping-list" class="flex-stack">
+</ul>
+</section>
+<style>
+::view-transition-group(*) {
+    animation-duration: .5s;
+    animation-timing-function: ease-in-out;
+  }
+
+  #shopping-list {
+
+    & .card {
+      display: flex;
+      gap: var(--space-xs);
+      /* border-block-end: solid 1px var(--color-back-5);
+      padding-block-end: var(--space-2xs); */
+      background-color: var(--section-color);
+      position: relative;
+
+      @media (hover: hover) {
+        & button:hover > svg {
+            /* Стиль при наведении на НЕотмеченную кнопку */
+            fill: var(--color-primary-5);
+            stroke: var(--color-primary-25);
+        }
+
+        &.done button:hover > svg {
+            /* Стиль при наведении на ОТМЕЧЕННУЮ кнопку */
+            fill: var(--color-back-5); /* Возвращаем к 'неактивному' цвету при наведении? */
+            stroke: var(--color-back-25); /* или используйте другие цвета */
+        }
+      }
+
+      &.done {
+        opacity: 0.5;
+        order: 1; /* Переместить элемент вниз */
+        & .card-text {
+          text-decoration: line-through;
+        }
+
+        & button>svg {
+          fill: var(--color-primary-5);
+          stroke: var(--color-primary-25);
+        }
+
+      }
+      
+      &.is-first-done {
+
+        margin-block-start: var(--space-2xl);
+        border-width: 4px 0 0 0;
+        border-style: solid;
+        border-color: transparent;
+        border-image-source: linear-gradient(to right, var(--color-back-5), var(--color-back-5));
+        border-image-slice: 1;
+        border-image-outset: var(--space-xl);
+      }
+
+      &>button {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        inline-size: var(--space-2xl);
+        aspect-ratio: 1;
+        display: grid;
+        background-color: var(--color-back);
+        box-shadow: none;
+        border-radius: 4px;
+        border-bottom-right-radius: var(--border-radius);
+        border-top-left-radius: var(--border-radius);
+        border-right: solid 4px var(--color-back-5);
+        border-bottom: solid 4px var(--color-back-5);
+
+        &>svg {
+          inline-size: calc(var(--space-xl)*.75);
+          aspect-ratio: 1;
+          fill: var(--color-back-5);
+          stroke: var(--color-back-10);
+          transition: all var(--duration) var(--easing);
+        }
+
+        &:active > svg {
+            transform: scale(1.05);
+        }
+
+      }
+
+      & .card-text {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        /* justify-content: space-between; */
+        gap: var(--space-3xs);
+        line-height: 1.4;
+
+        border-inline-start: solid 2px var(--color-back-10);
+        padding-inline-start: var(--space-2xs);
+        padding-block-end: calc(var(--space-2xl) - var(--space-m));
+
+        & p:nth-child(2) {
+          font-size: var(--step--1);
+          font-weight: var(--font-weight-light);
+          color: var(--color-text-10);
+          white-space: pre-wrap;
+        }
+      }
+
+      &>:first-child {
+        flex: 0 0 9ch;
+        display: flex;
+        flex-direction: column;
+        gap: var(--space-s);
+        align-items: center;
+      }
+
+      &>p {
+        /* flex: 0 0 7ch; */
+        text-align: end;
+        white-space: nowrap;
+      }
+
+      & img {
+        aspect-ratio: 1;
+        object-fit: cover;
+      }
+
+      & picture {
+        background-color: var(--color-back-30);
+        border-radius: var(--border-radius);
+        inline-size: 100%;
+        aspect-ratio: 1;
+      }
+
+    }
+  }
+</style>
+<script>document.addEventListener("DOMContentLoaded",()=>{const t=document.getElementById("shopping-list");if(!t)return void console.warn("Контейнер списка #shopping-list не найден. Функционал 'куплено' не будет работать.");let e=null;try{const t=new URLSearchParams(window.location.search).get("d");if(t&&t.length>=16){const o=t.slice(-16);e="shoppingList_"+o,console.log("Сгенерирован ID списка для localStorage:",e)}else console.warn('Параметр "d" в URL не найден или слишком короткий для генерации ID. Сохранение состояния будет отключено.')}catch(t){console.error("Ошибка при обработке URL для генерации ID списка:",t)}let o={};function n(){const e=t.querySelectorAll("li.card[data-item-index]");let o=!1;e.forEach(t=>{const e=t.classList.contains("done")&&!o;t.classList.toggle("is-first-done",e),e&&(o=!0)})}function s(){if(e)try{const t={};for(const e in o)!0===o[e]&&(t[e]=!0);localStorage.setItem(e,JSON.stringify(t))}catch(t){console.error("Ошибка сохранения состояния в localStorage:",t),alert("Не удалось сохранить состояние списка. Возможно, хранилище браузера переполнено.")}else console.warn("ID списка не сгенерирован, сохранение в localStorage пропущено.")}o=function(){if(!e)return console.log("ID списка не сгенерирован, загрузка из localStorage пропущена."),{};try{const t=localStorage.getItem(e);return t?JSON.parse(t):{}}catch(t){return console.error("Ошибка загрузки состояния из localStorage:",t),{}}}(),t.querySelectorAll("li.card[data-item-index]").forEach(t=>{const e=t.dataset.itemIndex,n=!0===o[e];t.classList.toggle("done",n);const s=t.querySelector(".card-button");s&&s.setAttribute("aria-pressed",n?"true":"false")}),console.log("Начальное состояние 'куплено' применено."),n(),t.addEventListener("click",function(t){const e=t.target.closest(".card-button");if(!e)return;const r=e.closest("li.card[data-item-index]");if(!r)return;const c=r.dataset.itemIndex;if(void 0===c)return;const a=!r.classList.contains("done");o[c]=a;const i=()=>{r.classList.toggle("done",a),e.setAttribute("aria-pressed",a?"true":"false"),n()};if(!document.startViewTransition)return console.log("View Transitions API не поддерживается, применяем изменения напрямую."),i(),void s();document.startViewTransition(i).finished.then(()=>{}),s()})})</script>
+</main>
+<footer id="site-footer" class="stack">
+<p class="logo"><span>*</span><span>опа</span><span>/</span></p>
+<p class="text-light">* ОПА - Однушка Под Аренду</p>
+</footer>
+<svg width="0" height="0">
+<defs>
+<filter id="natural-shadow-filter" x="-10%" y="-10%" width="120%" height="120%">
+<feOffset in="SourceGraphic" dx="0" dy="0"></feOffset>
+<feGaussianBlur stdDeviation="2" result="blur"></feGaussianBlur>
+<feMerge>
+<feMergeNode in="blur"></feMergeNode>
+<feMergeNode in="SourceGraphic"></feMergeNode>
+</feMerge>
+</filter>
+</defs>
+</svg>
+</body>
+</html>
